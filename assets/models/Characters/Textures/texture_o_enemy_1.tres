@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://kham7744mslf"]
+
+[ext_resource type="Texture2D" uid="uid://chjhbxokrfq44" path="res://assets/models/Characters/Textures/texture-o.png" id="1_4xoh3"]
+
+[resource]
+albedo_color = Color(0.999983, 0.33447403, 0.43848988, 1)
+albedo_texture = ExtResource("1_4xoh3")
+metallic = 0.1
+roughness = 0.9

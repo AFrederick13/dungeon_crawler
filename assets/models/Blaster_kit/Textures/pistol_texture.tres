@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bpfa2pvhgc7hg"]
+
+[ext_resource type="Texture2D" uid="uid://b3pf1mruk35ws" path="res://assets/models/Blaster_kit/Textures/colormap.png" id="1_0thhg"]
+
+[resource]
+albedo_color = Color(1, 0.5892942, 0.13723245, 1)
+albedo_texture = ExtResource("1_0thhg")
+metallic = 0.65
+metallic_texture = ExtResource("1_0thhg")
+roughness_texture = ExtResource("1_0thhg")

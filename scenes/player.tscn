@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://b3hjlgmu1lcvb"]
+
+[ext_resource type="PackedScene" uid="uid://b51nhk14wppyx" path="res://assets/models/Characters/character-g.glb" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bj2xq0bqtcivb" path="res://scripts/Player.cs" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://mkhk8xygmgu1" path="res://scenes/laser_projectile.tscn" id="2_fjrip"]
+[ext_resource type="Material" uid="uid://dhvou1it62mj7" path="res://assets/models/Characters/Textures/player_texture.tres" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://u48jmhc6rn61" path="res://scripts/HitBoxComponent.cs" id="4_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://ba2dsxxd0xq4c" path="res://scenes/pistol.tscn" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://km3kgmx1lmub" path="res://scripts/HealthComponent.cs" id="5_tuyoq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2els"]
+size = Vector3(1.6, 2.745, 0.685)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qhqgy"]
+size = Vector3(1.6, 2.7, 0.8)
+
+[node name="Player" type="CharacterBody3D" unique_id=425346297]
+script = ExtResource("1_g2els")
+laser_projectile = ExtResource("2_fjrip")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1687081373]
+
+[node name="character-g2" parent="." unique_id=303480294 instance=ExtResource("1_3vyb7")]
+
+[node name="character-g" parent="character-g2" index="0" unique_id=1708011144]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="leg-left" parent="character-g2/character-g/root" parent_id_path=PackedInt32Array(303480294, 1547958690) index="0" unique_id=875676473]
+material_override = ExtResource("3_qhqgy")
+gi_mode = 2
+
+[node name="leg-right" parent="character-g2/character-g/root" parent_id_path=PackedInt32Array(303480294, 1547958690) index="1" unique_id=1763591547]
+material_override = ExtResource("3_qhqgy")
+gi_mode = 2
+
+[node name="torso" parent="character-g2/character-g/root" parent_id_path=PackedInt32Array(303480294, 1547958690) index="2" unique_id=2013881068]
+material_override = ExtResource("3_qhqgy")
+gi_mode = 2
+
+[node name="arm-left" parent="character-g2/character-g/root/torso" index="0" unique_id=2052855811]
+material_override = ExtResource("3_qhqgy")
+gi_mode = 2
+
+[node name="arm-right" parent="character-g2/character-g/root/torso" index="1" unique_id=289276547]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.4000001, 1.1, -0.099999905)
+material_override = ExtResource("3_qhqgy")
+gi_mode = 2
+
+[node name="Pistol" parent="character-g2/character-g/root/torso/arm-right" index="0" unique_id=1648460947 instance=ExtResource("4_tuyoq")]
+transform = Transform3D(-1, -8.742277e-08, 1.7484555e-07, 1.7484555e-07, -4.371138e-08, 1, -8.742273e-08, 1, 4.3711395e-08, -0.2267397, -1.0978919, 0.26390624)
+
+[node name="Muzzle" parent="character-g2/character-g/root/torso/arm-right/Pistol/blaster-b2/blaster-b" parent_id_path=PackedInt32Array(1648460947, 1301832461, 1212579958) index="0" unique_id=1356082444]
+transform = Transform3D(1, 0, -1.7484555e-07, 0, 1, 0, 1.7484555e-07, 0, 1, 0, 0.012310624, -0.30023235)
+
+[node name="head" parent="character-g2/character-g/root/torso" index="2" unique_id=27076068]
+material_override = ExtResource("3_qhqgy")
+gi_mode = 2
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1689927657]
+transform = Transform3D(-0.74698967, -0.50368696, 0.4339423, 0.011052485, 0.6432077, 0.76561195, -0.66474384, 0.5767004, -0.47490245, 5.5945034, 9.583454, -5.7713237)
+projection = 1
+current = true
+fov = 86.51956
+size = 17.536383
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=962249084]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00091737305, 1.3701234, 0.0032468266)
+shape = SubResource("BoxShape3D_g2els")
+
+[node name="HitBoxComponent" type="Area3D" parent="." unique_id=886356467 node_paths=PackedStringArray("HealthComp")]
+script = ExtResource("4_qlg0r")
+HealthComp = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxComponent" unique_id=540449272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3602631, 0)
+shape = SubResource("BoxShape3D_qhqgy")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=182834552]
+script = ExtResource("5_tuyoq")
+
+[editable path="character-g2"]
+[editable path="character-g2/character-g/root/torso/arm-right/Pistol"]
+[editable path="character-g2/character-g/root/torso/arm-right/Pistol/blaster-b2"]

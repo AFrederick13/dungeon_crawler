@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cyecp3nau2u6n"]
+
+[ext_resource type="Texture2D" uid="uid://drkw7f74io1cs" path="res://assets/models/modular_space_kit/GLB format/Textures/colormap.png" id="1_hirrl"]
+
+[resource]
+albedo_color = Color(0.9625911, 0.64609206, 0.96425515, 1)
+albedo_texture = ExtResource("1_hirrl")
+metallic = 0.5
+roughness = 0.45

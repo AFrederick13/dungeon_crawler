@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c66f2tiagg1sr"]
+
+[ext_resource type="PackedScene" uid="uid://cm5c76urry5wn" path="res://scenes/level_1.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://dhbrh1qsubt35" path="res://assets/images/5532919.jpg" id="2_yqjtg"]
+
+[sub_resource type="Environment" id="Environment_uwrxv"]
+background_mode = 3
+background_canvas_max_layer = -1
+ambient_light_source = 3
+ambient_light_color = Color(0.690585, 0.7933726, 0.9999985, 1)
+ambient_light_sky_contribution = 0.8
+ambient_light_energy = 2.0
+tonemap_mode = 3
+ssao_enabled = true
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.003921569, 0, 0, 1)
+fog_density = 0.03
+
+[node name="Game" type="Node3D" unique_id=1637025758]
+
+[node name="Level1" parent="." unique_id=1826494043 instance=ExtResource("1_uwrxv")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=686276338]
+environment = SubResource("Environment_uwrxv")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=762545831]
+layer = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background" unique_id=1122066584]
+anchors_preset = -1
+offset_left = -18.0
+offset_top = -33.000023
+offset_right = 2982.0
+offset_bottom = 1967.0
+scale = Vector2(0.41141585, 0.4315242)
+texture = ExtResource("2_yqjtg")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1618456528]
+
+[node name="ProgressBar" type="ProgressBar" parent="UI" unique_id=1690424529]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 79.0
+offset_top = -88.0
+offset_right = 83.0
+offset_bottom = -61.0
+grow_vertical = 0
+scale = Vector2(6.2587023, 3.1192763)
+theme_override_colors/font_color = Color(0, 0.9490196, 0, 1)

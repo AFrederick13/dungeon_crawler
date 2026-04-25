@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://mkhk8xygmgu1"]
+
+[ext_resource type="Script" uid="uid://c1sk1ip78auw3" path="res://scripts/LaserProjectile.cs" id="1_7kv63"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ecw7v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecw7v"]
+transparency = 1
+albedo_color = Color(0.8912906, 4.1873755e-06, 8.663535e-07, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7kv63"]
+
+[node name="LaserProjectile" type="Area3D" unique_id=435417479]
+script = ExtResource("1_7kv63")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1896306357]
+transform = Transform3D(3.8213711e-16, -8.742278e-09, 0.2, -0.2, -8.742278e-09, 0, 8.742278e-09, -0.2, -8.742278e-09, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ecw7v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=697434121]
+transform = Transform3D(1, 7.1054274e-15, 4.440892e-15, 7.1054274e-15, 1, 1.9411755e-22, -1.523336e-14, 4.440892e-15, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ecw7v")
+transparency = 0.1
+mesh = SubResource("CapsuleMesh_7kv63")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CollisionShape3D/MeshInstance3D" unique_id=639542346]
+transform = Transform3D(-1.265103e-14, -5, 2.1855698e-07, -2.1855693e-07, -2.1855689e-07, -5, 5, -7.616681e-14, -2.1855692e-07, 0, 0, 0)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+omni_range = 10.0
+omni_attenuation = 1.5

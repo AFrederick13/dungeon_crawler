@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ba2dsxxd0xq4c"]
+
+[ext_resource type="PackedScene" uid="uid://dxbrttex6fvhq" path="res://assets/models/Blaster_kit/blaster-b.glb" id="1_igbvm"]
+[ext_resource type="Material" uid="uid://bpfa2pvhgc7hg" path="res://assets/models/Blaster_kit/Textures/pistol_texture.tres" id="2_buff3"]
+
+[node name="Pistol" type="Node3D" unique_id=1648460947]
+
+[node name="blaster-b2" parent="." unique_id=1301832461 instance=ExtResource("1_igbvm")]
+
+[node name="blaster-b" parent="blaster-b2" index="0" unique_id=1212579958]
+material_override = ExtResource("2_buff3")
+
+[node name="Muzzle" type="Marker3D" parent="blaster-b2/blaster-b" index="0" unique_id=1356082444]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.012310579, -0.30023235)
+
+[editable path="blaster-b2"]

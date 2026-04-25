@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://dfe5v4mgsavfj"]
+
+[ext_resource type="PackedScene" uid="uid://gwd1fytkn3me" path="res://assets/models/Characters/character-o.glb" id="1_tcmaw"]
+[ext_resource type="Material" uid="uid://kham7744mslf" path="res://assets/models/Characters/Textures/texture_o_enemy_1.tres" id="2_dq62l"]
+[ext_resource type="Script" uid="uid://u48jmhc6rn61" path="res://scripts/HitBoxComponent.cs" id="3_ejytf"]
+[ext_resource type="Script" uid="uid://km3kgmx1lmub" path="res://scripts/HealthComponent.cs" id="4_dq62l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a1412"]
+size = Vector3(1.6, 2.7, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l21ug"]
+size = Vector3(1.6, 2.7, 0.8)
+
+[node name="Enemy1" type="CharacterBody3D" unique_id=188969576]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=326289479]
+
+[node name="character-o2" parent="." unique_id=1774235451 instance=ExtResource("1_tcmaw")]
+
+[node name="leg-left" parent="character-o2/character-o/root" parent_id_path=PackedInt32Array(1774235451, 1205707792) index="0" unique_id=2103390531]
+material_override = ExtResource("2_dq62l")
+
+[node name="leg-right" parent="character-o2/character-o/root" parent_id_path=PackedInt32Array(1774235451, 1205707792) index="1" unique_id=191652854]
+material_override = ExtResource("2_dq62l")
+
+[node name="torso" parent="character-o2/character-o/root" parent_id_path=PackedInt32Array(1774235451, 1205707792) index="2" unique_id=483859788]
+material_override = ExtResource("2_dq62l")
+
+[node name="arm-left" parent="character-o2/character-o/root/torso" index="0" unique_id=485825883]
+material_override = ExtResource("2_dq62l")
+
+[node name="arm-right" parent="character-o2/character-o/root/torso" index="1" unique_id=1217081117]
+material_override = ExtResource("2_dq62l")
+
+[node name="head" parent="character-o2/character-o/root/torso" index="2" unique_id=1001697908]
+material_override = ExtResource("2_dq62l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=490675935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3681307, 0)
+shape = SubResource("BoxShape3D_a1412")
+
+[node name="HitBoxComponent" type="Area3D" parent="." unique_id=763604316 node_paths=PackedStringArray("HealthComp")]
+script = ExtResource("3_ejytf")
+HealthComp = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBoxComponent" unique_id=1360749491]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3677065, 0)
+shape = SubResource("BoxShape3D_l21ug")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1940812944]
+script = ExtResource("4_dq62l")
+
+[editable path="character-o2"]
