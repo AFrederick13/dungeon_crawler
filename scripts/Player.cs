@@ -7,8 +7,6 @@ public partial class Player : CharacterBody3D
 	[Export] public float Speed = 10.0f;
 	[Export] public RayCast3D AttackRay;
 	[Export] public int AttackDamage = 25;
-	
-	// NEW
 	[Export] public PackedScene laser_projectile;
 	
 
@@ -17,8 +15,6 @@ public partial class Player : CharacterBody3D
 	private AnimationPlayer _animPlayer;
 	private Node3D _model;
 	private Vector3 _targetPosition;
-	
-	// NEW
 	private Node3D _muzzle;
 
 	public override void _Ready()
@@ -28,14 +24,15 @@ public partial class Player : CharacterBody3D
 		_model = GetNode<Node3D>("character-g2");
 		_targetPosition = GlobalPosition;
 		
-		// NEW -- may need to adjust path
+		// NOTE: May need to adjust path later
+		// Alternate path
 		// _muzzle = GetNode<Marker3D>("%Muzzle");
 		
-		// NEW -- hard coded path 
+		// Hard coded path 
 		_muzzle = GetNode<Marker3D>("character-g2/character-g/root/torso/arm-right/Pistol/blaster-b2/blaster-b/Muzzle");
 	}	
 
-	// This is now the input switchboard
+	// Input switchboard
 	public override void _Input(InputEvent @event)
 	{
 		// Left Click or Hold: Movement
@@ -50,7 +47,7 @@ public partial class Player : CharacterBody3D
 			AimAndPerformAttack(attackEvent.Position);
 		}
 		
-		// Spacebar for "Panic Attacks" and testing
+		// Spacebar key for attacks for testing
 		if (@event.IsActionPressed("ui_accept"))
 		{
 			PerformAttack();
@@ -104,27 +101,7 @@ public partial class Player : CharacterBody3D
 		MoveAndSlide();
 	}
 
-
-	// Attacking
-	//private void PerformAttack()
-	//{
-		//GD.Print("Attempting Attack...");
-//
-		//if (AttackRay != null && AttackRay.IsColliding())
-		//{
-			//var target = AttackRay.GetCollider();
-			//GD.Print($"Hit");
-//
-			//// Ensure this matches your lowercase 'b' naming convention from earlier
-			//if (target is HitBoxComponent hitbox)
-			//{
-				//hitbox.HandleDamage(AttackDamage);
-				//GD.Print("Damage Dealt!");
-			//}
-		//}
-	//}
-	
-	// NEW Attacking
+	// Attack function
 	private void PerformAttack()
 	{
 		if (laser_projectile == null || _muzzle == null) return;
@@ -132,12 +109,12 @@ public partial class Player : CharacterBody3D
 		// Create a "Clone" of the laser scene
 		var bullet = laser_projectile.Instantiate<LaserProjectile>();
 
-		// Add it to the main scene tree
-		// We add it to the "Owner" (usually the Level) so that if the player 
-		// moves, the bullets don't move with them!
+		// Add to the main scene tree
+		// Add to the "Owner" (possibly the Level) so that if the player 
+		// moves, the bullets do not move with them
 		GetTree().Root.AddChild(bullet);
 
-		// Set the bullet's position and rotation to match the gun's muzzle
+		// Set bullet's position and rotation to match the gun's muzzle
 		bullet.GlobalTransform = _muzzle.GlobalTransform;
 		
 		GD.Print("Laser Fired!");
@@ -148,16 +125,16 @@ public partial class Player : CharacterBody3D
 		var camera = GetViewport().GetCamera3D();
 		if (camera == null) return;
 
-		// 1. Create the Ray from the camera
+		// Create the Ray from the camera
 		var from = camera.ProjectRayOrigin(mousePos);
 		var toNormal = camera.ProjectRayNormal(mousePos);
 
-		// 2. Create a mathematical Plane at the player's feet height
-		// Vector3.Up means the plane is horizontal (like a floor)
-		// GlobalPosition.Y ensures the plane is exactly at the player's level
+		// Create mathematical Plane
+		// Vector3.Up == plane is horizontal
+		// GlobalPosition.Y ensures the plane is at the player's level
 		Plane aimingPlane = new Plane(Vector3.Up, GlobalPosition.Y);
 
-		// 3. Find where the camera ray hits this virtual plane
+		// Find where the camera ray hits this virtual plane
 		// Intersection yields a Vector3? (nullable Vector3)
 		var intersectionPoint = aimingPlane.IntersectsRay(from, toNormal);
 
@@ -165,16 +142,16 @@ public partial class Player : CharacterBody3D
 		{
 			Vector3 lookPoint = intersectionPoint.Value;
 
-			// 4. Rotate the model to face that point
+			// Rotate the model to face that point
 			var target = new Vector3(lookPoint.X, GlobalPosition.Y, lookPoint.Z);
 			
-			// Safety check: Don't LookAt if the point is exactly where we are
+			// Don't LookAt if the point is exactly where we are
 			if (GlobalPosition.DistanceTo(target) > 0.1f)
 			{
 				_model.LookAt(target, Vector3.Up);
 			}
 
-			// 5. Stop movement and fire
+			// Stop movement and fire
 			_navAgent.TargetPosition = GlobalPosition;
 			PerformAttack();
 		}
